@@ -76,8 +76,6 @@
             width: 600px;
             text-align: left;
             margin-bottom: 20px;
-            display: none;
-            overflow: hidden;
         }
 
         .all-quotes-box h2 {
@@ -102,6 +100,10 @@
         .toggle-arrow.collapsed {
             transform: rotate(90deg);
         }
+
+        #quoteList {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -119,8 +121,41 @@
 
     <div class="all-quotes-box" id="allQuotesBox">
         <h2>All Quotes <span id="toggleArrow" class="toggle-arrow">➡️</span></h2>
-        <div id="quoteList" style="display: none;">
-            <!-- All quotes will be injected here dynamically -->
+        <div id="quoteList">
+            <p>"Je m’appelle frikandel."</p>
+            <p>"If my mom had balls, she'd be my dad."</p>
+            <p>"I don't know, and um like I said in the beginning of this press conference, I get really tired of all the questions, so if I get a few more, I might headbutt someone."</p>
+            <p>"Because I'm Dutch."</p>
+            <p>"Hello everyone, eaehh."</p>
+            <p>"Hello, what the fuck?"</p>
+            <p>"Um, I don't really have a lot to comment on that except that he was being a pussy."</p>
+            <p>"Thank you, Danny."</p>
+            <p>"Nice and sweaty, you know."</p>
+            <p>"Ki ki aye."</p>
+            <p>"I have a very sweaty ballsack at the moment."</p>
+            <p>"Daniel, look!"</p>
+            <p>"I believe I can fly, I believe I can touch the sky…okay, that's enough."</p>
+            <p>"Get me to the chopper."</p>
+            <p>"Man, is this fucking guy blind?"</p>
+            <p>"Ay ay ay, these tyres are already vibrating like I flat-spotted for 300 meters."</p>
+            <p>"Nah, I'll just visit the dentist after the weekend."</p>
+            <p>"I hate this fucking DRS."</p>
+            <p>"Yeah, I'm not even gonna say it, wtf happened."</p>
+            <p>"I couldn't do anything there."</p>
+            <p>"Wow, nice gap that."</p>
+            <p>"That's what you get when you don't leave the space."</p>
+            <p>"Mate, we all have no grip."</p>
+            <p>"What a fucking idiot."</p>
+            <p>"Yeah, I know what to say, I hope I don't find him in the paddock because then he is fucked."</p>
+            <p>"I never read this shit, man."</p>
+            <p>"You don't need to finish it, it's Charles."</p>
+            <p>"It was just to put the pressure on Helmut to give me a better contract."</p>
+            <p>"Ni hao!"</p>
+            <p>"Why is it so spikey? What is it? Now I can not hold it anymore."</p>
+            <p>"Rapupupup wauuu."</p>
+            <p>"Quack quack."</p>
+            <p>"My dad did that once to a mechanic."</p>
+            <p>"He pushed me, I pushed him, he pushed me off the track."</p>
         </div>
     </div>
 
@@ -130,87 +165,19 @@
     </div>
 
     <script>
-        const quotes = [
-            "Je m’appelle frikandel.",
-            "If my mom had balls, she'd be my dad.",
-            "I don't know, and um like I said in the beginning of this press conference, I get really tired of all the questions, so if I get a few more, I might headbutt someone.",
-            "Because I'm Dutch.",
-            "Hello everyone, eaehh.",
-            "Hello, what the fuck?",
-            "Um, I don't really have a lot to comment on that except that he was being a pussy.",
-            "Thank you, Danny.",
-            "Nice and sweaty, you know.",
-            "Ki ki aye.",
-            "I have a very sweaty ballsack at the moment.",
-            "Daniel, look!",
-            "I believe I can fly, I believe I can touch the sky…okay, that's enough.",
-            "Get me to the chopper.",
-            "Man, is this fucking guy blind?",
-            "Ay ay ay, these tyres are already vibrating like I flat-spotted for 300 meters.",
-            "Nah, I'll just visit the dentist after the weekend.",
-            "I hate this fucking DRS.",
-            "Yeah, I'm not even gonna say it, wtf happened.",
-            "I couldn't do anything there.",
-            "Wow, nice gap that.",
-            "That's what you get when you don't leave the space.",
-            "Mate, we all have no grip.",
-            "What a fucking idiot.",
-            "Yeah, I know what to say, I hope I don't find him in the paddock because then he is fucked.",
-            "I never read this shit, man.",
-            "You don't need to finish it, it's Charles.",
-            "It was just to put the pressure on Helmut to give me a better contract.",
-            "Ni hao!",
-            "Why is it so spikey? What is it? Now I can not hold it anymore.",
-            "Rapupupup wauuu.",
-            "Quack quack.",
-            "My dad did that once to a mechanic.",
-            "He pushed me, I pushed him, he pushed me off the track."
-        ];
-
-        function getRandomQuote() {
-            return quotes[Math.floor(Math.random() * quotes.length)];
-        }
-
-        function getAllQuotes() {
-            return quotes;
-        }
-
-        function displayRandomQuote() {
-            const quote = getRandomQuote(); // Get random quote
-            document.getElementById('quoteText').innerText = `"${quote}"`;
-        }
-
-        function displayAllQuotes() {
-            const allQuotes = getAllQuotes(); // Get all quotes
-            const quoteList = document.getElementById('quoteList');
-            quoteList.innerHTML = ''; // Clear previous quotes
-
-            allQuotes.forEach(quote => {
-                const quoteItem = document.createElement('p');
-                quoteItem.innerText = `"${quote}"`;
-                quoteList.appendChild(quoteItem);
-            });
-
-            document.getElementById('allQuotesBox').style.display = 'block';
-        }
-
-        document.getElementById('refreshIcon').addEventListener('click', displayRandomQuote);
-
+        // Toggle visibility of the all quotes list
         document.getElementById('toggleArrow').addEventListener('click', function() {
             const quoteList = document.getElementById('quoteList');
-            const toggleArrow = document.getElementById('toggleArrow');
+            const arrow = document.getElementById('toggleArrow');
             
-            if (quoteList.style.display === 'block') {
-                quoteList.style.display = 'none';
-                toggleArrow.classList.add('collapsed');
-            } else {
+            if (quoteList.style.display === 'none' || quoteList.style.display === '') {
                 quoteList.style.display = 'block';
-                toggleArrow.classList.remove('collapsed');
+                arrow.innerText = '⬇️';  // Change the arrow to down when showing the list
+            } else {
+                quoteList.style.display = 'none';
+                arrow.innerText = '➡️';  // Change the arrow back to right when hiding the list
             }
         });
-
-        displayAllQuotes(); // Load all quotes on page load
-        displayRandomQuote(); // Load a random quote on page load
     </script>
 
 </body>
