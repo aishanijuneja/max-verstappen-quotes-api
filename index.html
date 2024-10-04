@@ -134,6 +134,8 @@
     </div>
 
     <script>
+        let allQuotes = []; // Store all quotes globally
+
         async function fetchQuote() {
             try {
                 const response = await fetch('https://verstoppen.netlify.app/.netlify/functions/quotes');  // Fetch single quote
@@ -165,6 +167,7 @@
                 quoteList.innerHTML = ''; // Clear previous quotes
 
                 if (Array.isArray(data)) {
+                    allQuotes = data; // Store all quotes
                     data.forEach(quote => {
                         const quoteItem = document.createElement('p');
                         quoteItem.innerText = `"${quote}"`; // Display each quote
