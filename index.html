@@ -105,7 +105,6 @@
         #quoteList {
             max-height: 300px; /* Fixed height */
             overflow-y: auto; /* Enable scrolling if content overflows */
-            display: none; /* Initially hidden */
         }
     </style>
 </head>
@@ -168,17 +167,17 @@
     </div>
 
     <script>
-        // Toggle visibility of the all quotes list
+        // Arrow toggle logic to collapse/expand the list
         document.getElementById('toggleArrow').addEventListener('click', function() {
             const quoteList = document.getElementById('quoteList');
             const arrow = document.getElementById('toggleArrow');
             
-            if (quoteList.style.display === 'none' || quoteList.style.display === '') {
-                quoteList.style.display = 'block';
-                arrow.innerText = '⬇️';  // Change the arrow to down when showing the list
-            } else {
-                quoteList.style.display = 'none';
+            if (quoteList.style.maxHeight === '300px') {
+                quoteList.style.maxHeight = '0'; // Collapse the list
                 arrow.innerText = '➡️';  // Change the arrow back to right when hiding the list
+            } else {
+                quoteList.style.maxHeight = '300px'; // Expand the list with scroll
+                arrow.innerText = '⬇️';  // Change the arrow to down when showing the list
             }
         });
     </script>
