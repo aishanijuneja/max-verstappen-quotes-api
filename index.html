@@ -29,6 +29,7 @@
             max-width: 600px;
             text-align: center;
             margin-bottom: 20px;
+            position: relative; /* Allow absolute positioning of refresh icon */
         }
 
         .quote-box p {
@@ -36,22 +37,21 @@
             margin: 0;
         }
 
+        .refresh-icon {
+            position: absolute;
+            top: 15px; /* Adjust the position */
+            right: 20px; /* Adjust the position */
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Subtle scaling effect */
+        }
+
+        .refresh-icon:hover {
+            transform: scale(1.2); /* Slightly enlarge icon on hover */
+        }
+
         .buttons {
             margin-bottom: 20px;
-        }
-
-        .buttons button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 0 10px;
-        }
-
-        .buttons button:hover {
-            background-color: #0056b3;
         }
 
         .footer {
@@ -84,12 +84,12 @@
     </div>
 
     <div class="quote-box" id="quoteBox">
-        <p id="quoteText">"Click refresh to load a quote!"</p>
+        <p id="quoteText">"Click the refresh icon to load a quote!"</p>
+        <span id="refreshIcon" class="refresh-icon">🔄</span> <!-- Refresh icon inside the quote box -->
     </div>
 
     <div class="buttons">
-        <button id="refreshBtn">Refresh</button>
-        <button id="showAllQuotesBtn">Show All Quotes</button> <!-- New button to show all quotes -->
+        <button id="showAllQuotesBtn">Show All Quotes</button> <!-- Button to show all quotes -->
     </div>
 
     <div class="all-quotes-box" id="allQuotesBox">
@@ -153,7 +153,7 @@
             }
         }
 
-        document.getElementById('refreshBtn').addEventListener('click', fetchQuote);
+        document.getElementById('refreshIcon').addEventListener('click', fetchQuote); // Fetch a new quote on icon click
         document.getElementById('showAllQuotesBtn').addEventListener('click', fetchAllQuotes); // Fetch all quotes on button click
         fetchQuote();  // Fetch a quote when the page loads
     </script>
