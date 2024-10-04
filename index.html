@@ -76,6 +76,8 @@
             width: 600px;
             text-align: left;
             margin-bottom: 20px;
+            display: none; /* Initially hidden */
+            overflow: hidden;
         }
 
         .all-quotes-box h2 {
@@ -103,8 +105,28 @@
 
         /* Scrollable quote list */
         #quoteList {
-            max-height: 300px; /* Fixed height */
-            overflow-y: auto; /* Enable scrolling if content overflows */
+            max-height: 200px; /* Set a max height */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding-right: 10px; /* Add space for scrollbar */
+        }
+
+        /* Custom scrollbar styles */
+        #quoteList::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
+
+        #quoteList::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Background of the track */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        #quoteList::-webkit-scrollbar-thumb {
+            background: #888; /* Color of the scrollbar thumb */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        #quoteList::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Darker thumb on hover */
         }
     </style>
 </head>
@@ -124,40 +146,7 @@
     <div class="all-quotes-box" id="allQuotesBox">
         <h2>All Quotes <span id="toggleArrow" class="toggle-arrow">➡️</span></h2>
         <div id="quoteList">
-            <p>"Je m’appelle frikandel."</p>
-            <p>"If my mom had balls, she'd be my dad."</p>
-            <p>"I don't know, and um like I said in the beginning of this press conference, I get really tired of all the questions, so if I get a few more, I might headbutt someone."</p>
-            <p>"Because I'm Dutch."</p>
-            <p>"Hello everyone, eaehh."</p>
-            <p>"Hello, what the fuck?"</p>
-            <p>"Um, I don't really have a lot to comment on that except that he was being a pussy."</p>
-            <p>"Thank you, Danny."</p>
-            <p>"Nice and sweaty, you know."</p>
-            <p>"Ki ki aye."</p>
-            <p>"I have a very sweaty ballsack at the moment."</p>
-            <p>"Daniel, look!"</p>
-            <p>"I believe I can fly, I believe I can touch the sky…okay, that's enough."</p>
-            <p>"Get me to the chopper."</p>
-            <p>"Man, is this fucking guy blind?"</p>
-            <p>"Ay ay ay, these tyres are already vibrating like I flat-spotted for 300 meters."</p>
-            <p>"Nah, I'll just visit the dentist after the weekend."</p>
-            <p>"I hate this fucking DRS."</p>
-            <p>"Yeah, I'm not even gonna say it, wtf happened."</p>
-            <p>"I couldn't do anything there."</p>
-            <p>"Wow, nice gap that."</p>
-            <p>"That's what you get when you don't leave the space."</p>
-            <p>"Mate, we all have no grip."</p>
-            <p>"What a fucking idiot."</p>
-            <p>"Yeah, I know what to say, I hope I don't find him in the paddock because then he is fucked."</p>
-            <p>"I never read this shit, man."</p>
-            <p>"You don't need to finish it, it's Charles."</p>
-            <p>"It was just to put the pressure on Helmut to give me a better contract."</p>
-            <p>"Ni hao!"</p>
-            <p>"Why is it so spikey? What is it? Now I can not hold it anymore."</p>
-            <p>"Rapupupup wauuu."</p>
-            <p>"Quack quack."</p>
-            <p>"My dad did that once to a mechanic."</p>
-            <p>"He pushed me, I pushed him, he pushed me off the track."</p>
+            <!-- All quotes will be injected here dynamically -->
         </div>
     </div>
 
@@ -166,20 +155,45 @@
         <span>⭐ #MAX#1/33</span>
     </div>
 
+    <script src="quotes.js"></script> <!-- Your script -->
+
     <script>
-        // Arrow toggle logic to collapse/expand the list
+        function displayRandomQuote() {
+            const quote = getRandomQuote(); // From quotes.js
+            document.getElementById('quoteText').innerText = `"${quote}"`;
+        }
+
+        function displayAllQuotes() {
+            const allQuotes = getAllQuotes(); // From quotes.js
+            const quoteList = document.getElementById('quoteList');
+            quoteList.innerHTML = ''; // Clear previous quotes
+
+            allQuotes.forEach(quote => {
+                const quoteItem = document.createElement('p');
+                quoteItem.innerText = `"${quote}"`;
+                quoteList.appendChild(quoteItem);
+            });
+
+            document.getElementById('allQuotesBox').style.display = 'block';
+        }
+
+        document.getElementById('refreshIcon').addEventListener('click', displayRandomQuote);
+
         document.getElementById('toggleArrow').addEventListener('click', function() {
             const quoteList = document.getElementById('quoteList');
-            const arrow = document.getElementById('toggleArrow');
+            const toggleArrow = document.getElementById('toggleArrow');
             
-            if (quoteList.style.maxHeight === '300px') {
-                quoteList.style.maxHeight = '0'; // Collapse the list
-                arrow.innerText = '➡️';  // Change the arrow back to right when hiding the list
+            if (quoteList.style.display === 'block') {
+                quoteList.style.display = 'none';
+                toggleArrow.classList.add('collapsed');
             } else {
-                quoteList.style.maxHeight = '300px'; // Expand the list with scroll
-                arrow.innerText = '⬇️';  // Change the arrow to down when showing the list
+                quoteList.style.display = 'block';
+                toggleArrow.classList.remove('collapsed');
             }
         });
+
+        displayAllQuotes(); // Load all quotes on page load
+        displayRandomQuote(); // Load a random quote on page load
     </script>
 
 </body>
