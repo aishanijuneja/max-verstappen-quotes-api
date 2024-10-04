@@ -1,0 +1,106 @@
+/* Set the base styling for the body */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at top left, #ff8c00, #c65d00, #ffab00, #9c4700); /* Patchy gradient with dynamic oranges and browns */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Custom cursor */
+.custom-cursor {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/racing-car_1f3ce-fe0f.png'); /* Race car emoji */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Styling for headers */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    color: #4b2e02; /* Dark brown color */
+    font-weight: bold;
+    font-style: italic; /* Bold and italics */
+}
+
+.header h2 {
+    font-size: 1.2em;
+    color: #4b2e02; /* Dark brown color */
+    font-weight: bold;
+    font-style: italic; /* Bold and italics */
+}
+
+/* Identical Quote Box Styles */
+.quote-box {
+    background-color: white;
+    padding: 20px 20px 20px 40px; /* Uniform padding */
+    border-radius: 25px; /* Increased rounding for a softer look */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    width: 500px; /* Same width for both boxes */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: flex-start; /* Align items to the start */
+    font-size: 1.3em;
+    margin-bottom: 15px; /* Consistent spacing */
+}
+
+/* Quote text container */
+.quote-text-container {
+    display: flex;
+    justify-content: space-between; /* Space between quote text and refresh icon */
+    width: 100%; /* Full width for alignment */
+}
+
+/* Refresh icon at the end */
+.refresh-icon {
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Subtle scaling effect */
+}
+
+.refresh-icon:hover {
+    transform: scale(1.2); /* Slightly enlarge icon on hover */
+}
+
+/* Style for quotes in the All Quotes section */
+.quote-list {
+    margin-top: 10px; /* Space between title and quotes */
+    font-size: 1.1em; /* Slightly smaller font for quotes */
+    overflow: hidden; /* Hide overflow initially */
+    transition: height 0.3s ease; /* Smooth height transition */
+    height: 0; /* Start with height 0 */
+}
+
+/* Show class for expanding the quotes */
+.quote-list.show {
+    height: auto; /* Auto height for expanded state */
+}
+
+/* Icon for All Quotes */
+.all-quotes-icon {
+    font-size: 1.2em; /* Size of the icon */
+    margin-right: 10px; /* Space between icon and text */
+}
+
+/* Footer styling */
+.footer {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #4b2e02; /* Dark brown footer text */
+    font-weight: bold;
+    font-style: italic; /* Bold and italics */
+}
