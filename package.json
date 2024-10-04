@@ -1,0 +1,17 @@
+{
+  "name": "maxverstoppen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aishani Juneja",
+  "license": "MIT",
+  "description": "Randomly puts out Max Verstappen quotes",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2"
+  }
+}
