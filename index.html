@@ -101,8 +101,11 @@
             transform: rotate(90deg);
         }
 
+        /* Scrollable quote list */
         #quoteList {
-            display: none;
+            max-height: 300px; /* Fixed height */
+            overflow-y: auto; /* Enable scrolling if content overflows */
+            display: none; /* Initially hidden */
         }
     </style>
 </head>
