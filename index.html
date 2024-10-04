@@ -36,11 +36,6 @@
             margin: 0;
         }
 
-        .quote-author {
-            margin-top: 10px;
-            color: #666;
-        }
-
         .buttons {
             margin-bottom: 20px;
         }
@@ -80,44 +75,32 @@
     </div>
 
     <div class="footer">
-        <p>👋 @aishani_juneja</p>
-        <span>⭐ #1/33</span>
+        <p>👋 @YourName</p>
+        <span>⭐ 894</span>
     </div>
 
     <script>
         async function fetchQuote() {
             try {
-                // Fetch the quote from the serverless function
-                const response = await fetch('/.netlify/functions/quotes');
-                
-                // Ensure response is okay
+                const response = await fetch('/.netlify/functions/quote');  // Fetch single quote
                 if (!response.ok) {
                     throw new Error("Failed to fetch quote");
                 }
 
                 const data = await response.json();
-
-                // Check if the response contains a valid quote
                 if (data && data.quote) {
                     document.getElementById('quoteText').innerText = `"${data.quote}"`;
                 } else {
-                    // If no quote is found in the response, handle it gracefully
                     document.getElementById('quoteText').innerText = "No quote found!";
                 }
             } catch (error) {
-                // Log the error to console for debugging
                 console.error('Error fetching quote:', error);
-
-                // Display an error message in the UI
                 document.getElementById('quoteText').innerText = "Error fetching quote!";
             }
         }
 
-        // Attach event listener to refresh button
         document.getElementById('refreshBtn').addEventListener('click', fetchQuote);
-
-        // Fetch an initial quote on load
-        fetchQuote();
+        fetchQuote();  // Fetch a quote when the page loads
     </script>
 
 </body>
