@@ -4,22 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Max Verstappen Quotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quote-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quote-box p {
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .quote-author {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Random Max Verstappen Quote</h1>
-    <button id="get-quote">Get Quote</button>
-    <p id="quote-display"></p>
+
+    <div class="header">
+        <h1>Max Verstappen Quotes</h1>
+        <p>A free REST API for random Max Verstappen quotes</p>
+    </div>
+
+    <div class="quote-box" id="quoteBox">
+        <p id="quoteText">"Click refresh to load a quote!"</p>
+    </div>
+
+    <div class="buttons">
+        <button id="refreshBtn">refresh</button>
+    </div>
+
+    <div class="footer">
+        <p>👋 @yourname</p>
+        <span>⭐ 894</span>
+    </div>
 
     <script>
-        document.getElementById('get-quote').addEventListener('click', async () => {
-            try {
-                const response = await fetch('/.netlify/functions/quote'); // Call your Netlify function
-                const data = await response.json();
-                document.getElementById('quote-display').innerText = data.quote; // Display the quote
-            } catch (error) {
-                console.error('Error fetching quote:', error);
-            }
-        });
+        async function fetchQuote() {
+            const response = await fetch('/.netlify/functions/quotes');
+            const data = await response.json();
+            document.getElementById('quoteText').innerText = `"${data.quote}"`;
+        }
+
+        document.getElementById('refreshBtn').addEventListener('click', fetchQuote);
+
+        // Fetch an initial quote on load
+        fetchQuote();
     </script>
+
 </body>
 </html>
