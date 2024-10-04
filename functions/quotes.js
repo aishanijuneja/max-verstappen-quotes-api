@@ -35,10 +35,20 @@ const quotes = [
     "He pushed me, I pushed him, he pushed me off the track."
 ];
 
+// Lambda handler
 exports.handler = async (event, context) => {
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ quote: randomQuote }),
-    };
+    // Check if the query parameter is 'all', otherwise return a random quote
+    const path = event.path || "";
+    if (path.includes("/all")) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ quotes: quotes }),
+        };
+    } else {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ quote: randomQuote }),
+        };
+    }
 };
