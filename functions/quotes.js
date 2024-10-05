@@ -143,14 +143,19 @@
 
     <!-- JavaScript to fetch quotes from Lambda function -->
     <script>
-        const apiUrl = "https://your-lambda-url.com";  // Replace with your actual Lambda endpoint
+        const randomQuoteUrl = "/.netlify/functions/quote";  // This path matches your quotes.js handler
+        const allQuotesUrl = "/.netlify/functions/quote/all"; // Fetches all quotes
 
         // Function to display a random quote by fetching from Lambda API
         async function displayRandomQuote() {
             try {
-                const response = await fetch(`${apiUrl}/random`);
+                const response = await fetch(randomQuoteUrl);
                 const data = await response.json();
-                document.getElementById('quoteText').innerText = `"${data.quote}"`;
+                if (response.ok && data.quote) {
+                    document.getElementById('quoteText').innerText = `"${data.quote}"`;
+                } else {
+                    document.getElementById('quoteText').innerText = "No quote available";
+                }
             } catch (error) {
                 console.error("Error fetching random quote:", error);
                 document.getElementById('quoteText').innerText = "Error loading quote!";
@@ -160,24 +165,33 @@
         // Function to display all quotes by fetching from Lambda API
         async function displayAllQuotes() {
             try {
-                const response = await fetch(`${apiUrl}/all`);
+                const response = await fetch(allQuotesUrl);
                 const data = await response.json();
                 const quoteList = document.getElementById('quoteList');
                 quoteList.innerHTML = ''; // Clear previous quotes
 
-                data.quotes.forEach(quote => {
-                    const row = document.createElement('tr');
-                    
-                    const quoteCell = document.createElement('td');
-                    quoteCell.innerText = `"${quote}"`;
-                    
-                    const sourceCell = document.createElement('td');
-                    sourceCell.innerText = "Max Verstappen"; // Assuming all quotes are from Max
+                if (response.ok && data.quotes) {
+                    data.quotes.forEach(quote => {
+                        const row = document.createElement('tr');
+                        
+                        const quoteCell = document.createElement('td');
+                        quoteCell.innerText = `"${quote}"`;
+                        
+                        const sourceCell = document.createElement('td');
+                        sourceCell.innerText = "Max Verstappen"; // Assuming all quotes are from Max
 
-                    row.appendChild(quoteCell);
-                    row.appendChild(sourceCell);
+                        row.appendChild(quoteCell);
+                        row.appendChild(sourceCell);
+                        quoteList.appendChild(row);
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.colSpan = 2;
+                    cell.innerText = "No quotes available";
+                    row.appendChild(cell);
                     quoteList.appendChild(row);
-                });
+                }
             } catch (error) {
                 console.error("Error fetching all quotes:", error);
             }

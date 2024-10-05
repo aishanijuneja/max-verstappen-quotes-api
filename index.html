@@ -143,8 +143,8 @@
 
     <!-- JavaScript to fetch quotes from Lambda function -->
     <script>
-        const randomQuoteUrl = "/.netlify/functions/quote";
-        const allQuotesUrl = "/.netlify/functions/quotes";
+        const randomQuoteUrl = "/.netlify/functions/quote";  // This path matches your quotes.js handler
+        const allQuotesUrl = "/.netlify/functions/quote/all"; // Fetches all quotes
 
         // Function to display a random quote by fetching from Lambda API
         async function displayRandomQuote() {
