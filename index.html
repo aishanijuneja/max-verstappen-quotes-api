@@ -11,11 +11,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             background-color: #f5f5f5;
             margin: 0;
             color: black;
-            padding: 20px;
         }
 
         .header {
@@ -41,8 +40,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            width: 400px;
             text-align: center;
             margin-bottom: 20px;
             position: relative;
@@ -70,14 +68,19 @@
             transform: scale(1.2);
         }
 
+        .footer {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
         .all-quotes-box {
             background-color: white;
             color: black;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
+            width: 400px;
             text-align: left;
         }
 
@@ -97,13 +100,6 @@
             background-color: #f0f0f0;
         }
 
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 1.2em;
-            color: #333;
-        }
-
         .footer p {
             font-size: 0.9em;
         }
@@ -111,57 +107,6 @@
         .footer span {
             color: #007BFF;
             font-weight: bold;
-        }
-
-        /* Responsive design adjustments */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .quote-box {
-                font-size: 1.3em;
-                padding: 15px;
-            }
-
-            .all-quotes-box {
-                padding: 15px;
-            }
-
-            .all-quotes-box th,
-            .all-quotes-box td {
-                font-size: 0.9em;
-                padding: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .header p {
-                font-size: 1em;
-            }
-
-            .quote-box {
-                font-size: 1.2em;
-                padding: 10px;
-            }
-
-            .all-quotes-box th,
-            .all-quotes-box td {
-                font-size: 0.8em;
-                padding: 6px;
-            }
-
-            .footer {
-                font-size: 1em;
-            }
-
-            .footer p {
-                font-size: 0.8em;
-            }
         }
     </style>
 </head>
