@@ -138,24 +138,36 @@
 
     <div class="footer">
         <p>👋 @aishanijuneja</p>
-        <span>⭐ MAX#1/33</span>
+        <span>⭐ #MAX#1/33</span>
     </div>
 
+    <!-- JavaScript to fetch quotes from Lambda function -->
     <script>
-        const randomQuoteUrl = "/.netlify/functions/quote";
-        const allQuotesUrl = "/.netlify/functions/quote/all";
+        // Define the URLs for fetching quotes
+        const randomQuoteUrl = "/.netlify/functions/quote";  // Fetch a random quote
+        const allQuotesUrl = "/.netlify/functions/quote/all"; // Fetch all quotes
 
         // Function to display a random quote by fetching from Lambda API
         async function displayRandomQuote() {
             try {
                 const response = await fetch(randomQuoteUrl);
+                
+                // Check if the response is okay
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Parse the response data
                 const data = await response.json();
-                if (response.ok && data.quote) {
+
+                // Check if the quote exists and display it
+                if (data.quote) {
                     document.getElementById('quoteText').innerText = `"${data.quote}"`;
                 } else {
                     document.getElementById('quoteText').innerText = "No quote available";
                 }
             } catch (error) {
+                // Log the error and show error message
                 console.error("Error fetching random quote:", error);
                 document.getElementById('quoteText').innerText = "Error loading quote!";
             }
@@ -165,17 +177,29 @@
         async function displayAllQuotes() {
             try {
                 const response = await fetch(allQuotesUrl);
-                const data = await response.json();
-                const quoteList = document.getElementById('quoteList');
-                quoteList.innerHTML = ''; // Clear previous quotes
+                
+                // Check if the response is okay
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-                if (response.ok && data.quotes) {
+                // Parse the response data
+                const data = await response.json();
+
+                // Get the quote list element
+                const quoteList = document.getElementById('quoteList');
+                
+                // Clear any existing content in the quote list
+                quoteList.innerHTML = '';
+
+                // Check if quotes exist and render them
+                if (data.quotes && data.quotes.length > 0) {
                     data.quotes.forEach(quote => {
                         const row = document.createElement('tr');
-                        
+
                         const quoteCell = document.createElement('td');
                         quoteCell.innerText = `"${quote}"`;
-                        
+
                         const sourceCell = document.createElement('td');
                         sourceCell.innerText = "Max Verstappen"; // Assuming all quotes are from Max
 
@@ -192,7 +216,10 @@
                     quoteList.appendChild(row);
                 }
             } catch (error) {
+                // Log the error and handle UI updates
                 console.error("Error fetching all quotes:", error);
+                const quoteList = document.getElementById('quoteList');
+                quoteList.innerHTML = `<tr><td colspan="2">Error loading quotes!</td></tr>`;
             }
         }
 
@@ -200,5 +227,9 @@
         document.getElementById('refreshIcon').addEventListener('click', displayRandomQuote);
 
         // Initial load of quotes
-        displayAllQuotes(); // Load all quotes on page load
-        displayRandom
+        displayAllQuotes();  // Load all quotes on page load
+        displayRandomQuote(); // Load a random quote on page load
+    </script>
+
+</body>
+</html>
