@@ -80,29 +80,49 @@
             color: #007BFF;
         }
 
-        .all-quotes-box {
+        /* Dropdown for all quotes */
+        .dropdown {
+            width: 400px;
             background-color: white;
-            color: black;
-            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: left;
+            margin-top: 20px;
         }
 
-        .all-quotes-box table {
+        .dropbtn {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .dropdown-content {
+            display: none;
+            max-height: 300px; /* Limit height of dropdown for better control */
+            overflow-y: auto; /* Enable scrolling when content exceeds height */
+            padding: 0 20px;
+            background-color: white;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .dropdown-content table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .all-quotes-box th,
-        .all-quotes-box td {
+        .dropdown-content th,
+        .dropdown-content td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
-        .all-quotes-box th {
+        .dropdown-content th {
             background-color: #f0f0f0;
         }
 
@@ -120,49 +140,6 @@
             color: #007BFF;
             font-weight: bold;
         }
-
-        /* Dropdown styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        .dropbtn {
-            background-color: #007BFF;
-            color: white;
-            padding: 12px 20px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 5px;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
     </style>
 </head>
 <body>
@@ -172,37 +149,35 @@
         <p>A free REST API for random Max Verstappen quotes</p>
     </div>
 
+    <!-- API Link -->
+    <div class="quote-link">
+        <strong>API Link:</strong>
+        <a href="https://verstoppen.netlify.app/.netlify/functions/quotes" target="_blank">
+            https://verstoppen.netlify.app/.netlify/functions/quotes
+        </a>
+    </div>
+
     <div class="quote-box" id="quoteBox">
         <p id="quoteText">"Click the refresh icon to load a quote!"</p>
         <span id="refreshIcon" class="refresh-icon">🔄</span>
-        <div class="quote-link">
-            <a href="https://verstoppen.netlify.app/.netlify/functions/quotes" target="_blank">
-                https://verstoppen.netlify.app/.netlify/functions/quotes
-            </a>
-        </div>
     </div>
 
+    <!-- Dropdown for all quotes -->
     <div class="dropdown">
-        <button class="dropbtn" id="dropdownBtn">Dropdown</button>
+        <button class="dropbtn" id="dropdownBtn">Show All Quotes</button>
         <div class="dropdown-content" id="dropdownContent">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Quotes List</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody id="quoteList">
+                    <!-- All quotes will be dynamically injected here -->
+                </tbody>
+            </table>
         </div>
-    </div>
-
-    <div class="all-quotes-box" id="allQuotesBox">
-        <table>
-            <thead>
-                <tr>
-                    <th>Quotes List</th>
-                    <th>Source</th>
-                </tr>
-            </thead>
-            <tbody id="quoteList">
-                <!-- All quotes will be dynamically injected here -->
-            </tbody>
-        </table>
     </div>
 
     <div class="footer">
@@ -237,7 +212,7 @@
             }
         }
 
-        // Function to display all quotes
+        // Function to fetch and display all quotes
         async function displayAllQuotes() {
             try {
                 const response = await fetch(allQuotesUrl);
@@ -246,7 +221,6 @@
                 }
 
                 const data = await response.json();
-
                 const quoteList = document.getElementById('quoteList');
                 quoteList.innerHTML = '';
 
@@ -280,25 +254,33 @@
         // Event listener for refresh icon to show a new random quote
         document.getElementById('refreshIcon').addEventListener('click', displayRandomQuote);
 
-        // Initial load of quotes
-        displayAllQuotes();  
-        displayRandomQuote(); 
-
         // Dropdown functionality
         const dropdownBtn = document.getElementById('dropdownBtn');
         const dropdownContent = document.getElementById('dropdownContent');
 
         dropdownBtn.addEventListener('click', function() {
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            // Toggle the display of the dropdown content
+            const isDropdownOpen = dropdownContent.style.display === 'block';
+            dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
+
+            // If dropdown is opening, load all quotes
+            if (!isDropdownOpen) {
+                displayAllQuotes();
+            }
         });
 
+        // Close dropdown if clicked outside of it
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
-                dropdownContent.style.display = 'none';
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                }
             }
-        }
+        };
+
+        // Initial random quote load
+        displayRandomQuote(); 
     </script>
 
 </body>
 </html>
-``
