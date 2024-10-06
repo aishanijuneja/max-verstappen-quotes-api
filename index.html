@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Max Verstappen Quotes</title>
+    <title>Verstoppen</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,11 +24,10 @@
 
         .header h1 {
             margin: 0;
-            font-size: 2em; /* Larger font size for the header */
-            font-weight: bold; /* Make header bold */
-            color: #333;
+            font-size: 2.5em; /* Larger font size for the header */
             letter-spacing: 2px; /* Increased letter spacing */
-            text-transform: uppercase; /* Make it uppercase */
+            text-transform: uppercase; /* Make header uppercase */
+            color: #333;
         }
 
         .header p {
@@ -134,19 +133,19 @@
         }
 
         .footer p {
-            font-size: 0.9em;
+            font-size: 0.8em; /* Smaller font size for footer text */
+            margin: 0;
         }
 
         .footer span {
             color: #007BFF;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Verstoppen</h1>
+        <h1>VERSTOPPEN</h1>
         <p>Because censorship in sports makes no sense</p>
         <p>A free REST API for random Max Verstappen quotes</p>
     </div>
@@ -163,6 +162,7 @@
         <span id="refreshIcon" class="refresh-icon">🔄</span>
     </div>
 
+    <!-- Dropdown for all quotes -->
     <div class="box dropdown">
         <button class="dropbtn" id="dropdownBtn">Show All Quotes</button>
         <div class="dropdown-content" id="dropdownContent">
@@ -180,10 +180,11 @@
     </div>
 
     <div class="footer">
-        <p>👋 @aishanijuneja</p>
-        <span>⭐ #MAX#1/33</span>
+     <p>👋 <a href="https://www.linkedin.com/in/aishanijuneja?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">@aishanijuneja</a></p>
+        <p><span>⭐ <a href="https://github.com/aishanijuneja/max-verstappen-quotes-api">Github</a></span></p>
     </div>
 
+    <!-- JavaScript -->
     <script>
         // Define the URLs for fetching quotes
         const randomQuoteUrl = "https://verstoppen.netlify.app/.netlify/functions/quotes";  
@@ -264,17 +265,17 @@
         });
 
         // Close dropdown if clicked outside of it
-        window.onclick = function(event) {
+               window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
                 if (dropdownContent.style.display === 'block') {
                     dropdownContent.style.display = 'none';
                 }
             }
-        };
+        }
 
-        // Initial random quote load
-        displayRandomQuote(); 
+        // Load a random quote when the page loads
+        window.onload = displayRandomQuote;
     </script>
-
 </body>
 </html>
+
