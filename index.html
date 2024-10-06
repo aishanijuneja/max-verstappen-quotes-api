@@ -15,8 +15,6 @@
             background-color: #f5f5f5;
             margin: 0;
             color: black;
-            padding: 10px; /* Added padding for small screens */
-            box-sizing: border-box; /* Ensure padding is included in width/height */
         }
 
         .header {
@@ -26,9 +24,11 @@
 
         .header h1 {
             margin: 0;
-            font-size: 2.5em; /* Adjusted font size for larger screens */
+            font-size: 2em; /* Larger font size for the header */
             font-weight: bold; /* Make header bold */
             color: #333;
+            letter-spacing: 2px; /* Increased letter spacing */
+            text-transform: uppercase; /* Make it uppercase */
         }
 
         .header p {
@@ -43,7 +43,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%; /* Make it full width for small screens */
+            width: 90%; /* Make it responsive */
             max-width: 400px; /* Set a maximum width */
             text-align: center;
             margin-bottom: 20px;
@@ -85,7 +85,7 @@
 
         /* Dropdown for all quotes */
         .dropdown {
-            width: 100%; /* Make it full width for small screens */
+            width: 90%; /* Make it responsive */
             max-width: 400px; /* Set a maximum width */
             background-color: white;
             border-radius: 5px;
@@ -141,35 +141,16 @@
             color: #007BFF;
             font-weight: bold;
         }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2em; /* Smaller header for small screens */
-            }
-
-            .header p {
-                font-size: 1em; /* Smaller text for header */
-            }
-
-            .box, .dropdown {
-                padding: 15px; /* Reduced padding for smaller screens */
-            }
-
-            .refresh-icon {
-                font-size: 1.2em; /* Smaller icon for mobile */
-            }
-        }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Max Verstappen Quotes</h1>
+        <h1>Verstoppen</h1>
+        <p>Because censorship in sports makes no sense</p>
         <p>A free REST API for random Max Verstappen quotes</p>
     </div>
 
-    <!-- Updated API Link with margin for spacing -->
     <div class="quote-link" style="margin-bottom: 20px;">
         <strong>API Link:</strong>
         <a href="https://verstoppen.netlify.app/.netlify/functions/quotes" target="_blank">
@@ -182,7 +163,6 @@
         <span id="refreshIcon" class="refresh-icon">🔄</span>
     </div>
 
-    <!-- Dropdown for all quotes -->
     <div class="box dropdown">
         <button class="dropbtn" id="dropdownBtn">Show All Quotes</button>
         <div class="dropdown-content" id="dropdownContent">
@@ -204,7 +184,6 @@
         <span>⭐ #MAX#1/33</span>
     </div>
 
-    <!-- JavaScript -->
     <script>
         // Define the URLs for fetching quotes
         const randomQuoteUrl = "https://verstoppen.netlify.app/.netlify/functions/quotes";  
@@ -276,8 +255,7 @@
         dropdownBtn.addEventListener('click', function() {
             // Toggle the display of the dropdown content
             const isDropdownOpen = dropdownContent.style.display === 'block';
-            
-                      dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
+            dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
 
             // If dropdown is opening, load all quotes
             if (!isDropdownOpen) {
@@ -300,4 +278,3 @@
 
 </body>
 </html>
-
