@@ -42,7 +42,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 400px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             position: relative;
             font-size: 1.5em;
             font-weight: bold;
@@ -66,6 +66,18 @@
 
         .refresh-icon:hover {
             transform: scale(1.2);
+        }
+
+        .api-link {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .api-link a {
+            color: #007BFF;
+            text-decoration: none;
         }
 
         .footer {
@@ -120,6 +132,10 @@
     <div class="quote-box" id="quoteBox">
         <p id="quoteText">"Click the refresh icon to load a quote!"</p>
         <span id="refreshIcon" class="refresh-icon">🔄</span>
+    </div>
+
+    <div class="api-link">
+        <p>API available at: <a href="https://example.com/.netlify/functions/quote" target="_blank">https://example.com/.netlify/functions/quote</a></p>
     </div>
 
     <div class="all-quotes-box" id="allQuotesBox">
