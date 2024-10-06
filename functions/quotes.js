@@ -1,209 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Max Verstappen Quotes</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-            margin: 0;
-            color: black;
-        }
+// netlify/functions/quote.js
 
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+const quotes = [
+    "Je m’appelle frikandel.",
+    "If my mom had balls, she'd be my dad.",
+    "I don't know, and um like I said in the beginning of this press conference, I get really tired of all the questions, so if I get a few more, I might headbutt someone.",
+    "Because I'm Dutch.",
+    "Hello everyone, eaehh.",
+    "Hello, what the fuck?",
+    "Um, I don't really have a lot to comment on that except that he was being a pussy.",
+    "Thank you, Danny.",
+    "Nice and sweaty, you know.",
+    "Ki ki aye.",
+    "I have a very sweaty ballsack at the moment.",
+    "Daniel, look!",
+    "I believe I can fly, I believe I can touch the sky…okay, that's enough.",
+    "Get me to the chopper.",
+    "Man, is this fucking guy blind?",
+    "Ay ay ay, these tyres are already vibrating like I flat-spotted for 300 meters.",
+    "Nah, I'll just visit the dentist after the weekend.",
+    "I hate this fucking DRS.",
+    "Yeah, I'm not even gonna say it, wtf happened.",
+    "I couldn't do anything there.",
+    "Wow, nice gap that.",
+    "That's what you get when you don't leave the space.",
+    "Mate, we all have no grip.",
+    "What a fucking idiot.",
+    "Yeah, I know what to say, I hope I don't find him in the paddock because then he is fucked.",
+    "I never read this shit, man.",
+    "You don't need to finish it, it's Charles.",
+    "It was just to put the pressure on Helmut to give me a better contract.",
+    "Ni hao!",
+    "Why is it so spikey? What is it? Now I can not hold it anymore.",
+    "Rapupupup wauuu.",
+    "Quack quack.",
+    "My dad did that once to a mechanic.",
+    "He pushed me, I pushed him, he pushed me off the track."
+];
 
-        .header h1 {
-            margin: 0;
-            font-size: 2em;
-            color: #333;
-        }
+// Lambda handler
+exports.handler = async (event, context) => {
+    const path = event.path || "";
+    const headers = {
+        'Access-Control-Allow-Origin': '*',  // Allow CORS
+        'Content-Type': 'application/json',
+    };
 
-        .header p {
-            margin: 5px 0;
-            font-size: 1.2em;
-            color: #666;
-        }
-
-        .quote-box {
-            background-color: white;
-            color: black;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .quote-box p {
-            font-size: 1.2em;
-            margin: 0;
-            padding-right: 50px;
-        }
-
-        .refresh-icon {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: #007BFF;
-            transition: transform 0.3s ease;
-        }
-
-        .refresh-icon:hover {
-            transform: scale(1.2);
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
-
-        .all-quotes-box {
-            background-color: white;
-            color: black;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: left;
-        }
-
-        .all-quotes-box table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .all-quotes-box th,
-        .all-quotes-box td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .all-quotes-box th {
-            background-color: #f0f0f0;
-        }
-
-        .footer p {
-            font-size: 0.9em;
-        }
-
-        .footer span {
-            color: #007BFF;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <h1>Max Verstappen Quotes</h1>
-        <p>A free REST API for random Max Verstappen quotes</p>
-    </div>
-
-    <div class="quote-box" id="quoteBox">
-        <p id="quoteText">"Click the refresh icon to load a quote!"</p>
-        <span id="refreshIcon" class="refresh-icon">🔄</span>
-    </div>
-
-    <div class="all-quotes-box" id="allQuotesBox">
-        <table>
-            <thead>
-                <tr>
-                    <th>Quotes List</th>
-                    <th>Source</th>
-                </tr>
-            </thead>
-            <tbody id="quoteList">
-                <!-- All quotes will be dynamically injected here -->
-            </tbody>
-        </table>
-    </div>
-
-    <div class="footer">
-        <p>👋 @aishanijuneja</p>
-        <span>⭐ #MAX#1/33</span>
-    </div>
-
-    <!-- JavaScript to fetch quotes from Lambda function -->
-    <script>
-        const randomQuoteUrl = "/.netlify/functions/quote";  // This path matches your quotes.js handler
-        const allQuotesUrl = "/.netlify/functions/quote/all"; // Fetches all quotes
-
-        // Function to display a random quote by fetching from Lambda API
-        async function displayRandomQuote() {
-            try {
-                const response = await fetch(randomQuoteUrl);
-                const data = await response.json();
-                if (response.ok && data.quote) {
-                    document.getElementById('quoteText').innerText = `"${data.quote}"`;
-                } else {
-                    document.getElementById('quoteText').innerText = "No quote available";
-                }
-            } catch (error) {
-                console.error("Error fetching random quote:", error);
-                document.getElementById('quoteText').innerText = "Error loading quote!";
-            }
-        }
-
-        // Function to display all quotes by fetching from Lambda API
-        async function displayAllQuotes() {
-            try {
-                const response = await fetch(allQuotesUrl);
-                const data = await response.json();
-                const quoteList = document.getElementById('quoteList');
-                quoteList.innerHTML = ''; // Clear previous quotes
-
-                if (response.ok && data.quotes) {
-                    data.quotes.forEach(quote => {
-                        const row = document.createElement('tr');
-                        
-                        const quoteCell = document.createElement('td');
-                        quoteCell.innerText = `"${quote}"`;
-                        
-                        const sourceCell = document.createElement('td');
-                        sourceCell.innerText = "Max Verstappen"; // Assuming all quotes are from Max
-
-                        row.appendChild(quoteCell);
-                        row.appendChild(sourceCell);
-                        quoteList.appendChild(row);
-                    });
-                } else {
-                    const row = document.createElement('tr');
-                    const cell = document.createElement('td');
-                    cell.colSpan = 2;
-                    cell.innerText = "No quotes available";
-                    row.appendChild(cell);
-                    quoteList.appendChild(row);
-                }
-            } catch (error) {
-                console.error("Error fetching all quotes:", error);
-            }
-        }
-
-        // Event listener for refresh icon to show a new random quote
-        document.getElementById('refreshIcon').addEventListener('click', displayRandomQuote);
-
-        // Initial load of quotes
-        displayAllQuotes(); // Load all quotes on page load
-        displayRandomQuote(); // Load a random quote on page load
-    </script>
-
-</body>
-</html>
+    if (path.includes("/all")) {
+        return {
+            statusCode: 200,
+            headers: headers,
+            body: JSON.stringify({ quotes: quotes }),
+        };
+    } else {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        return {
+            statusCode: 200,
+            headers: headers,
+            body: JSON.stringify({ quote: randomQuote }),
+        };
+    }
+};

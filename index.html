@@ -141,10 +141,9 @@
         <span>⭐ #MAX#1/33</span>
     </div>
 
-    <!-- JavaScript to fetch quotes from Lambda function -->
     <script>
-        const randomQuoteUrl = "/.netlify/functions/quote";  // This path matches your quotes.js handler
-        const allQuotesUrl = "/.netlify/functions/quote/all"; // Fetches all quotes
+        const randomQuoteUrl = "/.netlify/functions/quote";
+        const allQuotesUrl = "/.netlify/functions/quote/all";
 
         // Function to display a random quote by fetching from Lambda API
         async function displayRandomQuote() {
@@ -202,8 +201,4 @@
 
         // Initial load of quotes
         displayAllQuotes(); // Load all quotes on page load
-        displayRandomQuote(); // Load a random quote on page load
-    </script>
-
-</body>
-</html>
+        displayRandom
