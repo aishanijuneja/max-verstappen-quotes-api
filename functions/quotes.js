@@ -1,6 +1,12 @@
 // netlify/functions/quote.js
 
 const quotes = [
+    "The only place that matters is first",
+    "I always try to get the best result out of it, I'm not there to just sit second or sit third",
+    "Mistakes happen, and they happen to the best of us",
+    "I just want to do the best I can every time",
+    "I think you can improve on everything; you're never perfect",
+    "simply lovely",
     "Je m’appelle frikandel.",
     "I don't know, and um like I said in the beginning of this press conference, I get really tired of all the questions, so if I get a few more, I might headbutt someone.",
     "Because I'm Dutch.",
@@ -27,20 +33,14 @@ const quotes = [
     "Rapupupup wauuu.",
     "Quack quack.",
     "My dad did that once to a mechanic.",
-    "He pushed me, I pushed him, he pushed me off the track.",
-    "The only place that matters is first",
-    "I always try to get the best result out of it, I'm not there to just sit second or sit third",
-    "Mistakes happen, and they happen to the best of us",
-    "I just want to do the best I can every time",
-    "I think you can improve on everything; you're never perfect",
-    "simply lovely"
+    "He pushed me, I pushed him, he pushed me off the track."
 ];
 
-// Lambda handler
+
 exports.handler = async (event, context) => {
     const path = event.path || "";
     const headers = {
-        'Access-Control-Allow-Origin': '*',  // Allow CORS
+        'Access-Control-Allow-Origin': '*',  
         'Content-Type': 'application/json',
     };
 

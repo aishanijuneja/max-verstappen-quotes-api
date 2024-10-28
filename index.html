@@ -24,9 +24,9 @@
 
         .header h1 {
             margin: 0;
-            font-size: 2.5em; /* Larger font size for the header */
-            letter-spacing: 2px; /* Increased letter spacing */
-            text-transform: uppercase; /* Make header uppercase */
+            font-size: 2.5em;
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
             color: #333;
         }
 
@@ -42,17 +42,17 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 90%; /* Make it responsive */
-            max-width: 400px; /* Set a maximum width */
+            width: 90%; 
+            max-width: 400px; 
             text-align: center;
             margin-bottom: 20px;
             position: relative;
-            font-size: 1em; /* Set font size to 1em for consistency */
-            font-weight: normal; /* Normal font weight for text */
+            font-size: 1em; 
+            font-weight: normal; 
         }
 
         .quote-box p {
-            font-size: 1em; /* Same font size as the rest */
+            font-size: 1em; 
             margin: 0;
             padding-right: 50px;
         }
@@ -72,9 +72,9 @@
         }
 
         .quote-link {
-            margin-top: 20px; /* Increased top margin for more spacing */
+            margin-top: 20px; 
             font-size: 1em;
-            color: #333; /* Changed color to match the rest of the text */
+            color: #333; 
         }
 
         .quote-link a {
@@ -82,10 +82,10 @@
             color: #007BFF;
         }
 
-        /* Dropdown for all quotes */
+       
         .dropdown {
-            width: 90%; /* Make it responsive */
-            max-width: 400px; /* Set a maximum width */
+            width: 90%; 
+            max-width: 400px; 
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -99,19 +99,19 @@
             font-size: 16px;
             border: none;
             cursor: pointer;
-            width: 100%; /* Set button width to match dropdown */
+            width: 100%; 
             text-align: left;
             border-radius: 5px 5px 0 0;
         }
 
         .dropdown-content {
             display: none;
-            max-height: 300px; /* Limit height of dropdown for better control */
-            overflow-y: auto; /* Enable scrolling when content exceeds height */
+            max-height: 300px; 
+            overflow-y: auto; 
             padding: 0 20px;
             background-color: white;
             border-radius: 0 0 5px 5px;
-            width: 100%; /* Set width to match dropdown button */
+            width: 100%; 
         }
 
         .dropdown-content table {
@@ -133,7 +133,7 @@
         }
 
         .footer p {
-            font-size: 0.8em; /* Smaller font size for footer text */
+            font-size: 0.8em; 
             margin: 0;
         }
 
@@ -173,7 +173,6 @@
                     </tr>
                 </thead>
                 <tbody id="quoteList">
-                    <!-- All quotes will be dynamically injected here -->
                 </tbody>
             </table>
         </div>
@@ -184,13 +183,10 @@
         <p><span>⭐ <a href="https://github.com/aishanijuneja/max-verstappen-quotes-api">Github</a></span></p>
     </div>
 
-    <!-- JavaScript -->
+    
     <script>
-        // Define the URLs for fetching quotes
         const randomQuoteUrl = "https://verstoppen.netlify.app/.netlify/functions/quotes";  
         const allQuotesUrl = "https://verstoppen.netlify.app/.netlify/functions/quotes/all"; 
-
-        // Function to display a random quote by fetching from API
         async function displayRandomQuote() {
             try {
                 const response = await fetch(randomQuoteUrl);
@@ -210,8 +206,6 @@
                 document.getElementById('quoteText').innerText = "Error loading quote!";
             }
         }
-
-        // Function to fetch and display all quotes
         async function displayAllQuotes() {
             try {
                 const response = await fetch(allQuotesUrl);
@@ -245,26 +239,17 @@
                 quoteList.innerHTML = `<tr><td>Error loading quotes!</td></tr>`;
             }
         }
-
-        // Event listener for refresh icon to show a new random quote
         document.getElementById('refreshIcon').addEventListener('click', displayRandomQuote);
-
-        // Dropdown functionality
         const dropdownBtn = document.getElementById('dropdownBtn');
         const dropdownContent = document.getElementById('dropdownContent');
 
         dropdownBtn.addEventListener('click', function() {
-            // Toggle the display of the dropdown content
             const isDropdownOpen = dropdownContent.style.display === 'block';
             dropdownContent.style.display = isDropdownOpen ? 'none' : 'block';
-
-            // If dropdown is opening, load all quotes
             if (!isDropdownOpen) {
                 displayAllQuotes();
             }
         });
-
-        // Close dropdown if clicked outside of it
                window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
                 if (dropdownContent.style.display === 'block') {
@@ -272,8 +257,6 @@
                 }
             }
         }
-
-        // Load a random quote when the page loads
         window.onload = displayRandomQuote;
     </script>
 </body>
